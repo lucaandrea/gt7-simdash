@@ -4,12 +4,14 @@
 
 <div align="center">
 
-Click to see the simdash in action!
+Click to see it in action!
 
 [![GT7 SIMDASH IN ACTION](https://img.youtube.com/vi/Pckp1NWW3_M/0.jpg)](https://www.youtube.com/watch?v=Pckp1NWW3_M)
 
 <h3>
+
 [Documentation](https://github.com/chrshdl/gt7-simdash/wiki)
+
 </h3>
 
 </div>
