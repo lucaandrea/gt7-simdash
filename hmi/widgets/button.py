@@ -22,6 +22,7 @@ class Button:
         self.position: tuple[int, int] = position
         self.size: tuple[int, int] = size
         self.button: pygame.Surface = pygame.Surface(size).convert()
+        self.rect = self.button.get_rect(topleft=position)
         self.button.fill(Color.DARK_GREY.rgb())
         self.outline: bool = outline
         self.gradient: bool = gradient
@@ -57,40 +58,25 @@ class Button:
                 self.gradient = False
 
     def is_pressed(self, events: list[pygame.event.Event]) -> bool:
-        mousePos = pygame.mouse.get_pos()
-        if self.is_within_button_area(
-            mousePos[0],
-            mousePos[1],
-            self.size[0],
-            self.size[1],
-            self.position[0],
-            self.position[1],
-        ):
-            for event in events:
-                if event.type == pygame.MOUSEBUTTONDOWN:
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print("is pressed")
+                if self.rect.collidepoint(event.pos):
                     self.gradient = True
                     self.top = pygame.Color(*Color.DARK_BLUE.rgb())
                     self.gradient_outline_color = Color.BLUE.rgb()
                     return True
-        else:
             self.gradient = False
-        return False
+            return False
 
     def is_released(self, events: list[pygame.event.Event]) -> bool:
-        mousePos = pygame.mouse.get_pos()
-        if self.is_within_button_area(
-            mousePos[0],
-            mousePos[1],
-            self.size[0],
-            self.size[1],
-            self.position[0],
-            self.position[1],
-        ):
-            for event in events:
-                if event.type == pygame.MOUSEBUTTONUP:
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONUP:
+                print("is released")
+                if self.rect.collidepoint(event.pos):
                     self.gradient = False
                     return True
-        return False
+            return False
 
     def render(self, display: pygame.Surface) -> None:
         if self.gradient:
@@ -113,7 +99,7 @@ class Button:
             - (self.text_surf.get_rect().height / 2 - 3)
         )
 
-        display.blit(self.button, (self.position[0], self.position[1]))
+        display.blit(self.button, self.position)
         display.blit(self.text_surf, (textx, texty))
 
         if self.outline:
@@ -135,10 +121,6 @@ class Button:
                 thickness,
                 4,
             )
-
-    @staticmethod
-    def is_within_button_area(px, py, rw, rh, rx, ry) -> bool:
-        return px > rx and px < rx + rw and py > ry and py < ry + rh
 
     def draw_gradient(self, top: pygame.Color, bottom: ColorValues) -> None:
         w = self.button.get_rect().width
