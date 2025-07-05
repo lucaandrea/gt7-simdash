@@ -37,6 +37,84 @@ pipenv shell
 pipenv install
 ```
 
+## Install on macOS
+
+### Recommended: Step-by-step installation (tested working)
+
+**Important:** This project requires Python 3.10 or 3.11 (NOT 3.12) due to deprecated `imp` module usage in some dependencies.
+
+```sh
+# Step 1: Install Python 3.10 via Homebrew
+brew install python@3.10
+
+# Step 2: Navigate to project directory
+cd /path/to/gt7-simdash
+
+# Step 3: Remove any existing virtual environments
+rm -rf .venv
+pipenv --rm 2>/dev/null || true
+
+# Step 4: Create virtual environment with explicit Python 3.10 path
+/opt/homebrew/bin/python3.10 -m venv .venv
+
+# Step 5: Activate virtual environment
+source .venv/bin/activate
+
+# Step 6: Verify correct Python version (should show 3.10.x)
+python --version
+
+# Step 7: Upgrade pip
+pip install --upgrade pip
+
+# Step 8: Install dependencies
+pip install -r requirements.txt
+
+# Step 9: Run the application
+python main.py
+```
+
+### Alternative Options
+
+#### Option 1: Using pipenv (if you prefer it)
+
+First, ensure you have pipenv installed and force Python 3.10:
+
+```sh
+pip3 install pipenv
+
+# Remove any existing environment
+pipenv --rm
+
+# Create new environment with explicit Python path
+pipenv --python /opt/homebrew/bin/python3.10
+pipenv install -r requirements.txt
+pipenv shell
+python main.py
+```
+
+#### Option 2: Using Python venv (standard approach)
+
+```sh
+# Create virtual environment with Python 3.10
+python3.10 -m venv .venv
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run application
+python main.py
+```
+
+### ⚠️ Important Notes for macOS:
+
+- **Python Version**: Must use Python 3.10 or 3.11 (NOT 3.12)
+- **Homebrew Path**: Use explicit path `/opt/homebrew/bin/python3.10` to avoid system Python
+- **Platform Packages**: Raspberry Pi packages (`blinkt`, `rpi-lgpio`) are automatically skipped on macOS
+- **Dependencies**: All GT7 telemetry and AI features work on macOS without hardware-specific components
+
 ## Usage
 
 Start the application from inside the virtual environment with `python main.py`. Enter the IP of your Playstation using the buttons and press OK. The application will attempt to establish a connection with the Playstation. 
@@ -53,7 +131,69 @@ If the Playstation isn't ready to connect yet (because powered off) you will see
 </picture>
 </div>
 
+## Troubleshooting
 
+### Python version issues (macOS)
+
+If you encounter `ModuleNotFoundError` or `imp` module errors:
+
+**Problem:** Using Python 3.12 instead of Python 3.10/3.11
+```sh
+# Check your Python version
+python --version
+# If it shows Python 3.12.x, you need to use Python 3.10
+```
+
+**Solution:** Use the exact working commands from the installation section above.
+
+### pipenv shell issues
+
+If you encounter "Shell for UNKNOWN_VIRTUAL_ENVIRONMENT already activated" error:
+
+1. **Reset the environment:**
+   ```sh
+   # Exit current shell or open a new terminal
+   # Then run:
+   pipenv --rm  # Remove existing virtual environment
+   pipenv --python /opt/homebrew/bin/python3.10  # Recreate with Python 3.10
+   pipenv install -r requirements.txt  # Install dependencies
+   pipenv shell  # Activate shell
+   ```
+
+2. **Alternative: Use pipenv run directly:**
+   ```sh
+   pipenv run python main.py
+   ```
+
+3. **Check environment status:**
+   ```sh
+   pipenv --venv  # Show virtual environment path
+   pipenv graph   # Show installed packages
+   ```
+
+### Raspberry Pi package build errors
+
+If you see build errors for `lgpio` or `rpi.gpio` on macOS:
+
+**Problem:** These are Linux-only packages that can't build on macOS
+**Solution:** Use the fixed `requirements.txt` which automatically skips these packages on macOS
+
+### Verification commands
+
+To verify your installation is working:
+```sh
+# Check Python version (should be 3.10.x or 3.11.x)
+python --version
+
+# Test pygame installation
+python -c "import pygame; print('Pygame version:', pygame.version.ver)"
+
+# Test GT7 telemetry library
+python -c "import granturismo; print('GT7 library imported successfully')"
+
+# Run the application
+python main.py
+```
 
 ## Whats next
 

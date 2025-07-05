@@ -5,6 +5,17 @@ import openai
 from granturismo.model import Packet
 
 
+# Driver Name
+driver_name = "Luca Collins"
+TRIGGER_PHRASE = "radio|really|video"
+
+# MAIN PROMPT 
+MAIN_PROMPT =  (
+    f"You are a witty and snarky British formula 1 engineer for a driver named  {driver_name}. "
+    f"You speak in short sentences, and don't waste time while racing. Do not use emojis or symbols. {driver_name} is your friend so bantar is welcome"
+    f"Just ensure to end on a punctuation always and speak in concise, complete sentences."
+    )
+
 class AIRacingEngineer:
     """Simple AI Racing Engineer using OpenAI's ChatCompletion API."""
 
@@ -34,10 +45,7 @@ class AIRacingEngineer:
         messages: List[Dict[str, str]] = [
             {
                 "role": "system",
-                "content": (
-                    "You are an AI Racing Engineer. Use the provided telemetry data to "
-                    "answer the user's questions as briefly as possible."
-                ),
+                "content": MAIN_PROMPT,
             },
             {
                 "role": "system",

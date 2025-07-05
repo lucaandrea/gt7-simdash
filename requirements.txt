@@ -1,0 +1,12 @@
+pygame==2.6.1
+numpy>=1.21.0,<2.0.0
+scipy>=1.7.0,<2.0.0
+openai>=1.0.0,<2.0.0
+sounddevice>=0.4.0,<1.0.0
+soundfile>=0.10.0,<1.0.0
+salsa20>=0.3.0
+marshmallow-enum>=1.5.1
+marshmallow_dataclass>=8.5.0
+blinkt>=0.1.0 ; platform_system == "Linux"
+rpi-lgpio>=0.4 ; platform_system == "Linux"
+granturismo @ git+https://github.com/chrshdl/granturismo.git

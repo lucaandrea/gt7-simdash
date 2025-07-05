@@ -6,17 +6,20 @@ name = "pypi"
 [packages]
 pygame = "*"
 granturismo = {git = "https://github.com/chrshdl/granturismo.git"}
-blinkt = "*"
-rpi-lgpio = "*"
+blinkt = {version = "*", markers = "platform_system == 'Linux'"}
+rpi-lgpio = {version = "*", markers = "platform_system == 'Linux'"}
 scipy = "*"
 openai = "*"
 sounddevice = "*"
 soundfile = "*"
+salsa20 = "*"
+marshmallow-enum = "*"
+marshmallow_dataclass = "*"
+numpy = "*"
 
 [dev-packages]
 pre-commit = "*"
 jupyter = "*"
-numpy = "*"
 matplotlib = "*"
 shapely = "*"
 ruff = "==0.6.2"
