@@ -21,6 +21,8 @@ class Button:
         self.text: str = text
         self.position: tuple[int, int] = position
         self.size: tuple[int, int] = size
+        self.fs: int = fs
+        self.text_color: Color = text_color
         self.button: pygame.Surface = pygame.Surface(size).convert()
         self.rect = self.button.get_rect(topleft=position)
         self.button.fill(Color.DARK_GREY.rgb())
@@ -29,10 +31,8 @@ class Button:
         self.top: pygame.Color = pygame.Color(0, 0, 0)
         self.gradient_outline_color: ColorValues = Color.GREY.rgb()
         self.outline_color: ColorValues = outline_color.rgb()
-
-        font = pygame.font.Font(join("fonts", "pixeltype.ttf"), fs)
-
-        self.text_surf: pygame.Surface = font.render(f"{text}", False, text_color.rgb())
+        self._font_path = join("fonts", "pixeltype.ttf")
+        self.render_text()
 
     def update(self, packet: Packet):
         if self.text == "TCS":
@@ -121,6 +121,14 @@ class Button:
                 thickness,
                 4,
             )
+
+    def render_text(self) -> None:
+        font = pygame.font.Font(self._font_path, self.fs)
+        self.text_surf = font.render(f"{self.text}", False, self.text_color.rgb())
+
+    def set_text(self, text: str) -> None:
+        self.text = text
+        self.render_text()
 
     def draw_gradient(self, top: pygame.Color, bottom: ColorValues) -> None:
         w = self.button.get_rect().width

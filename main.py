@@ -1,3 +1,4 @@
+import os
 import sys
 from typing import Any
 
@@ -51,7 +52,9 @@ class Main:
             self.states.update({Main.STATE_WIZARD: Wizard(conf.recent_connected)})
         else:
             self.states.update({Main.STATE_STARTUP: Startup(self.playstation_ip)})
-            self.states.update({Main.STATE_DASHBOARD: Dashboard()})
+            self.states.update(
+                {Main.STATE_DASHBOARD: Dashboard(os.getenv("OPENAI_API_KEY"))}
+            )
 
         self.state: str = next(iter(self.states))
 
@@ -124,7 +127,9 @@ class Main:
     def on_ip_changed(self, event):
         self.playstation_ip = event.data
         self.states.update({Main.STATE_STARTUP: Startup(self.playstation_ip)})
-        self.states.update({Main.STATE_DASHBOARD: Dashboard()})
+        self.states.update(
+            {Main.STATE_DASHBOARD: Dashboard(os.getenv("OPENAI_API_KEY"))}
+        )
         self.state = Main.STATE_STARTUP
 
 
