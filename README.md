@@ -24,7 +24,8 @@ From the repository root simply run:
 ```sh
 ./run.sh
 ```
-This script creates a virtual environment, installs the dependencies from `requirements.txt` and launches the application.
+This script creates a virtual environment, installs the dependencies from `requirements.txt` and launches the application. Packages
+that only work on Raspberry&nbsp;Pi are skipped automatically on other platforms.
 
 ## Install on Raspberry Pi with Blinkt! LED
 
