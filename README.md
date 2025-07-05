@@ -18,6 +18,15 @@
 
 This is a very simple, lightweight HMI for a Gran Turismo 7 digital display. Written in Python and based on an event-driven architecture, it aims to be the easiest framework to add new features to.
 
+## Quick Start
+From the repository root simply run:
+
+```sh
+./run.sh
+```
+This script creates a virtual environment, installs the dependencies from `requirements.txt` and launches the application. Packages
+that only work on Raspberry&nbsp;Pi are skipped automatically on other platforms.
+
 ## Install on Raspberry Pi with Blinkt! LED
 
 First do a `pip3 install pipenv` to install the virtualenv management tool. After that edit `~/.profile` and check if `PATH` includes the user's private bin.
