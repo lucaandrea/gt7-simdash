@@ -34,6 +34,8 @@ Source it by executing `source ~/.profile`. Now you are ready do create the virt
 ```sh
 pipenv --python 3.10 # or 3.11
 pipenv shell
+
+pip install -r requirements.txt
 pipenv install
 ```
 
