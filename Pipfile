@@ -9,6 +9,9 @@ granturismo = {git = "https://github.com/chrshdl/granturismo.git"}
 blinkt = "*"
 rpi-lgpio = "*"
 scipy = "*"
+openai = "*"
+sounddevice = "*"
+soundfile = "*"
 
 [dev-packages]
 pre-commit = "*"
