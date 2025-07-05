@@ -1,9 +1,0 @@
-pygame
-numpy
-scipy
-openai
-sounddevice
-soundfile
-blinkt ; platform_system == "Linux"
-rpi-lgpio ; platform_system == "Linux"
-granturismo @ git+https://github.com/chrshdl/granturismo.git
