@@ -1,9 +1,0 @@
-pygame
-numpy
-scipy
-openai
-sounddevice
-soundfile
-blinkt
-rpi-lgpio
-granturismo @ git+https://github.com/chrshdl/granturismo.git
